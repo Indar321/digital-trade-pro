@@ -6,25 +6,26 @@
     <title>Digital Trade | Premium Design Agency</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- 1. THEME & VARIABLES --- */
         :root {
             --bg: #030303; --text: #ffffff; --accent: #00ffa3; --card: #0a0a0a; --border: #1a1a1a;
-            --header-bg: rgba(3, 3, 3, 0.85); --side: 8%;
+            --header-bg: rgba(3, 3, 3, 0.85); --side: 8%; --gap: 120px;
         }
         .light-mode {
             --bg: #f2f2f2; --text: #121212; --accent: #008f5d; --card: #ffffff; --border: #dcdcdc;
             --header-bg: rgba(242, 242, 242, 0.85);
         }
 
+        /* --- 2. GLOBAL RESET & CUSTOM SCROLLBAR --- */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
         body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.4s ease; }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-        /* --- 1. PRELOADER --- */
+        /* --- 3. PRELOADER --- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg);
             display: flex; justify-content: center; align-items: center; z-index: 99999999;
@@ -33,7 +34,7 @@
         .loader-text { font-size: 2rem; font-weight: 700; letter-spacing: 5px; color: var(--accent); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* --- 2. ADVANCED CURSOR (Dot + Ring) --- */
+        /* --- 4. ADVANCED CURSOR PHYSICS --- */
         #cursor-dot {
             width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999;
@@ -43,22 +44,21 @@
             width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%;
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999998;
             transition: width 0.3s, height 0.3s, background 0.3s;
-            transform: translate(-50%, -50%); /* Center ring on dot */
+            transform: translate(-50%, -50%);
         }
-        .cursor-hover #cursor-ring { width: 80px; height: 80px; background: rgba(0, 255, 163, 0.1); border-color: transparent; }
+        body.cursor-hover #cursor-ring { width: 80px; height: 80px; background: rgba(0, 255, 163, 0.1); border-color: transparent; }
 
-        /* --- HEADER --- */
+        /* --- 5. HEADER --- */
         header { position: fixed; top: 0; width: 100%; padding: 25px var(--side); display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: var(--header-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
         .logo { font-weight: 700; font-size: 1.5rem; }
         .logo span { color: var(--accent); }
         .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
 
-        /* --- HERO --- */
-        .hero { padding: 250px var(--side) 100px; min-height: 90vh; position: relative; }
+        /* --- 6. HERO & INFINITE MARQUEE --- */
+        .hero { padding: 220px var(--side) 80px; min-height: 80vh; position: relative; }
         .hero h1 { font-size: clamp(3.5rem, 9vw, 7.5rem); line-height: 0.85; margin-bottom: 30px; letter-spacing: -2px; }
         
-        /* --- 3. INFINITE MARQUEE --- */
         .marquee-container {
             width: 100%; overflow: hidden; white-space: nowrap; background: var(--accent);
             padding: 15px 0; color: #000; font-weight: 700; font-size: 1.2rem; text-transform: uppercase;
@@ -67,32 +67,51 @@
         .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- WORK GALLERY --- */
-        .gallery-container { padding: 120px var(--side); }
-        .slider-wrapper { display: flex; overflow-x: auto; gap: 50px; padding-bottom: 60px; scroll-snap-type: x mandatory; scrollbar-width: none; }
-        .slider-wrapper::-webkit-scrollbar { display: none; }
-        .slide { min-width: 500px; height: 650px; background: var(--card); border: 1px solid var(--border); scroll-snap-align: center; border-radius: 8px; overflow: hidden; position: relative; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
-        .slide:hover img { opacity: 1; transform: scale(1.08); }
+        /* --- 7. WORK GALLERY (CAROUSEL) --- */
+        .gallery-container { padding: var(--gap) var(--side); }
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 40px; padding-bottom: 40px; scroll-snap-type: x mandatory; }
+        .slide { min-width: 500px; height: 600px; background: var(--card); border: 1px solid var(--border); scroll-snap-align: center; border-radius: 8px; overflow: hidden; position: relative; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
+        .slide:hover img { opacity: 1; transform: scale(1.05); }
         .slide-info { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 4px; border: 1px solid #333; backdrop-filter: blur(5px); }
 
-        /* --- MAGNETIC CONTACT BUTTON & FORM --- */
-        .contact { padding: 150px var(--side); text-align: center; background: var(--card); border-top: 1px solid var(--border); }
-        .form-box { max-width: 650px; margin: 50px auto; display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { padding: 25px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 4px; font-size: 1rem; }
+        /* --- 8. PRICING SECTION --- */
+        .pricing { padding: var(--gap) var(--side); background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .price-card { border: 1px solid var(--border); padding: 50px; background: var(--bg); border-radius: 8px; transition: transform 0.3s, border-color 0.3s; }
+        .price-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .price-card h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.5rem; }
+        .price-card .amount { font-size: 2.5rem; font-weight: 700; margin-bottom: 30px; }
+        .price-card ul { list-style: none; color: #888; line-height: 2.5; font-size: 0.95rem; }
+
+        /* --- 9. ABOUT & CONTACT WITH MAGNETIC BUTTON --- */
+        .about-contact { padding: var(--gap) var(--side); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .form-box { display: flex; flex-direction: column; gap: 20px; }
+        input, textarea { padding: 25px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 4px; font-size: 1rem; }
         input:focus, textarea:focus { border-color: var(--accent); outline: none; }
         
         .magnetic-btn {
-            padding: 25px 50px; background: var(--accent); color: #000; font-weight: 700; font-size: 1.1rem;
-            border: none; border-radius: 50px; margin: 30px auto; display: inline-block; transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            padding: 25px 50px; background: var(--accent); color: #000; font-weight: 700; font-size: 1.1rem; text-transform: uppercase;
+            border: none; border-radius: 50px; display: inline-block; transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            align-self: flex-start;
         }
 
-        footer { padding: 60px var(--side); border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; }
+        /* --- 10. ADVANCED FOOTER --- */
+        footer { padding: 80px var(--side); background: #000; border-top: 1px solid var(--border); }
+        .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .f-col h4 { color: var(--accent); margin-bottom: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .f-col p, .f-col a { color: #777; font-size: 0.95rem; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .f-col a:hover { color: var(--accent); }
+        .f-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid #111; color: #555; font-size: 0.75rem; }
 
         .reveal { opacity: 0; transform: translateY(60px); transition: 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 768px) { .slide { min-width: 300px; height: 450px; } }
+        @media (max-width: 1024px) { 
+            .slide { min-width: 350px; height: 450px; } 
+            .about-contact, .f-grid { grid-template-columns: 1fr; gap: 50px; }
+            .nav-links { display: none; } /* Kept simple for mobile */
+        }
     </style>
 </head>
 <body>
@@ -109,8 +128,9 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="#work" class="hover-target">Work</a></li>
-                <li><a href="#contact" class="hover-target">Contact</a></li>
-                <li><button onclick="document.body.classList.toggle('light-mode')" class="hover-target" style="background:var(--accent); border:none; padding:8px 18px; border-radius:50px; font-weight:700;">MODE</button></li>
+                <li><a href="#prices" class="hover-target">Pricing</a></li>
+                <li><a href="#about" class="hover-target">Contact</a></li>
+                <li><button onclick="document.body.classList.toggle('light-mode')" class="hover-target" style="background:var(--accent); color:#000; border:none; padding:8px 18px; border-radius:50px; font-weight:700;">MODE</button></li>
             </ul>
         </nav>
     </header>
@@ -118,7 +138,7 @@
     <main>
         <section class="hero reveal">
             <h1>Strategic <span style="color:var(--accent)">Brand</span> <br>Architecture.</h1>
-            <p style="color: #888; max-width: 600px; margin-top: 30px; font-size: 1.3rem;">Engineering visual equity for Athrex Energy, Virox Apparel, and elite digital commerce.</p>
+            <p style="color: #888; max-width: 650px; margin-top: 30px; font-size: 1.3rem;">Engineering visual equity for Athrex Energy, Virox Apparel, and elite digital commerce. We turn aesthetics into functional business assets.</p>
         </section>
 
         <div class="marquee-container">
@@ -128,92 +148,138 @@
         </div>
 
         <section id="work" class="gallery-container reveal">
-            <div class="slider-wrapper">
-                <div class="slide hover-target">
+            <h2 style="margin-bottom: 50px; font-size: 2.5rem;">Selected Portfolio <span style="font-size: 1rem; color: #666; font-weight: 300;">(Swipe →)</span></h2>
+            <div class="slider-wrapper hover-target">
+                <div class="slide">
                     <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Athrex">
-                    <div class="slide-info"><h3 style="color:var(--accent)">Athrex Energy</h3><p style="color:#ccc; font-size:0.9rem;">Clean Tech Identity</p></div>
+                    <div class="slide-info"><h3 style="color:var(--accent)">Athrex Energy</h3><p style="color:#ccc;">Clean Tech Identity</p></div>
                 </div>
-                <div class="slide hover-target">
+                <div class="slide">
                     <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Virox">
-                    <div class="slide-info"><h3 style="color:var(--accent)">Virox Apparel</h3><p style="color:#ccc; font-size:0.9rem;">E-Commerce UI/UX</p></div>
+                    <div class="slide-info"><h3 style="color:var(--accent)">Virox Apparel</h3><p style="color:#ccc;">E-Commerce UI/UX</p></div>
                 </div>
-                <div class="slide hover-target">
+                <div class="slide">
                     <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200" alt="Trade">
-                    <div class="slide-info"><h3 style="color:var(--accent)">Digital Trade</h3><p style="color:#ccc; font-size:0.9rem;">Premium Packaging</p></div>
+                    <div class="slide-info"><h3 style="color:var(--accent)">Digital Trade</h3><p style="color:#ccc;">Premium Packaging</p></div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="contact reveal">
-            <h2 style="font-size: 3rem; margin-bottom: 20px;">Let's Build.</h2>
-            <p style="color: #888;">+91 9399097196 | Dantewada, CG</p>
+        <section id="prices" class="pricing reveal">
+            <h2 style="font-size: 2.5rem;">Investment & Value</h2>
+            <div class="pricing-grid">
+                <div class="price-card hover-target">
+                    <h3>Startup Branding</h3>
+                    <div class="amount">₹15,000</div>
+                    <ul><li>✔ Logo & Identity System</li><li>✔ Brand Color & Typography</li><li>✔ Business Stationery</li><li>✔ Social Media Kit</li></ul>
+                </div>
+                <div class="price-card hover-target" style="border-color:var(--accent)">
+                    <h3>Digital Scale</h3>
+                    <div class="amount">₹45,000</div>
+                    <ul><li>✔ Everything in Startup</li><li>✔ UI/UX Website Design</li><li>✔ Marketing Assets</li><li>✔ Premium Packaging</li></ul>
+                </div>
+                <div class="price-card hover-target">
+                    <h3>Enterprise</h3>
+                    <div class="amount">Custom</div>
+                    <ul><li>✔ Full Ecosystem Strategy</li><li>✔ 3D Rendering & Motion</li><li>✔ App Development UI</li><li>✔ Long-term Retainer</li></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-contact reveal">
+            <div>
+                <h2 style="font-size: 3rem; margin-bottom: 30px;">Let's Build.</h2>
+                <p style="color: #888; font-size: 1.1rem; line-height: 1.8; margin-bottom: 40px;">
+                    I bridge the gap between artistic vision and commercial performance. Whether establishing trust for a solar company like Athrex or driving retail conversions for Virox, every pixel is engineered for scale.
+                </p>
+                <div style="border-left: 2px solid var(--accent); padding-left: 20px; color: #aaa;">
+                    <strong>Location:</strong> Dantewada, Chhattisgarh<br>
+                    <strong>Direct Line:</strong> +91 9399097196
+                </div>
+            </div>
+            
             <form class="form-box" action="https://formspree.io/f/YOUR_ID" method="POST">
                 <input type="text" placeholder="Full Name" required class="hover-target">
                 <input type="email" placeholder="Email Address" required class="hover-target">
-                <textarea rows="5" placeholder="Project specifics..." class="hover-target"></textarea>
+                <textarea rows="4" placeholder="Project specifics..." class="hover-target"></textarea>
                 <button type="submit" class="magnetic-btn hover-target" id="mag-btn">Initiate Project</button>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>© 2026 DIGITAL TRADE</p>
-        <p>ENGINEERED IN DANTEWADA</p>
+        <div class="f-grid">
+            <div class="f-col">
+                <div class="logo">DIGITAL<span>TRADE</span></div>
+                <p style="margin-top: 20px; max-width: 250px;">Visual strategy for the next generation of global commerce and digital trade.</p>
+            </div>
+            <div class="f-col">
+                <h4>Sitemap</h4>
+                <a href="#work" class="hover-target">Portfolio Gallery</a>
+                <a href="#prices" class="hover-target">Pricing & Services</a>
+                <a href="#about" class="hover-target">About & Contact</a>
+            </div>
+            <div class="f-col">
+                <h4>Connect</h4>
+                <p>+91 9399097196</p>
+                <p>Dantewada, Chhattisgarh</p>
+                <a href="mailto:trade@digital.com" class="hover-target">trade@digital.com</a>
+            </div>
+        </div>
+        <div class="f-bottom">
+            <p>© 2026 DIGITAL TRADE PORTFOLIO. ALL RIGHTS RESERVED.</p>
+            <p>DESIGNED FOR HIGH PERFORMANCE.</p>
+        </div>
     </footer>
 
     <script>
-        // 1. PRELOADER LOGIC
+        // --- 1. PRELOADER LOGIC ---
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 preloader.style.opacity = '0';
                 preloader.style.visibility = 'hidden';
-            }, 1000); // 1 second delay for effect
+            }, 800);
         });
 
-        // 2. ADVANCED CURSOR (DOT + RING)
+        // --- 2. ADVANCED CURSOR (DOT + RING) ---
         const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
         let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
         let ringX = mouseX, ringY = mouseY;
 
-        // Track exact mouse position for the dot
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
             dot.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
         });
 
-        // Smooth trailing animation for the ring
         function animateRing() {
-            ringX += (mouseX - ringX) * 0.15; // The 0.15 controls the "drag/delay"
+            ringX += (mouseX - ringX) * 0.15; // Smooth trailing physics
             ringY += (mouseY - ringY) * 0.15;
-            ring.style.left = `${ringX}px`;
-            ring.style.top = `${ringY}px`;
+            ring.style.transform = `translate3d(${ringX - 20}px, ${ringY - 20}px, 0)`;
             requestAnimationFrame(animateRing);
         }
         animateRing();
 
-        // Cursor Hover States
+        // Cursor Hover Expansion
         document.querySelectorAll('.hover-target').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
 
-        // 3. MAGNETIC BUTTON LOGIC
+        // --- 3. MAGNETIC BUTTON LOGIC ---
         const magBtn = document.getElementById('mag-btn');
         magBtn.addEventListener('mousemove', (e) => {
             const rect = magBtn.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            // Pull the button towards the mouse slightly
-            magBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            magBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`; // Magnetic pull strength
         });
         magBtn.addEventListener('mouseleave', () => {
-            // Snap back to center
-            magBtn.style.transform = `translate(0px, 0px)`;
+            magBtn.style.transform = `translate(0px, 0px)`; // Snap back
         });
 
-        // 4. SCROLL REVEAL
+        // --- 4. SCROLL REVEAL ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
