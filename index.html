@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Trade | Portfolio</title>
-    <meta name="description" content="Strategic Branding, UI/UX, and Packaging for Athrex Energy, Virox, and global trade.">
+    <title>Digital Trade | Graphic Design & Branding</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. THEME & SPACING SYSTEM */
+        /* 1. THEME & SPACING */
         :root {
             --bg: #050505;
             --text: #ffffff;
@@ -16,7 +15,7 @@
             --card-bg: #0f0f0f;
             --border: #222;
             --side-padding: 8%;
-            --section-gap: 180px; /* Professional whitespace */
+            --section-gap: 160px;
         }
 
         .light-mode {
@@ -27,15 +26,30 @@
             --border: #e0e0e0;
         }
 
-        /* 2. CORE RESET */
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.5s ease; }
+        /* 2. CORE RESET - Hiding Default Cursor */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        html, body, a, button, input, textarea { cursor: none !important; }
 
-        /* 3. CURSOR (Highest Priority) */
-        #cursor {
-            width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
-            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999;
-            mix-blend-mode: difference; transition: transform 0.1s ease-out;
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            overflow-x: hidden; 
+            transition: background 0.5s ease; 
+        }
+
+        /* 3. THE FIXED CURSOR (Z-INDEX 999999) */
+        #cursor-ball {
+            width: 12px; height: 12px; 
+            background: var(--accent); 
+            border-radius: 50%;
+            position: fixed; 
+            top: 0; left: 0; 
+            pointer-events: none; 
+            z-index: 999999;
+            mix-blend-mode: difference; 
+            transition: transform 0.1s ease-out;
+            will-change: transform;
         }
 
         /* 4. NAVIGATION */
@@ -46,19 +60,16 @@
         .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; }
         .logo span { color: var(--accent); }
         .nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* 5. HERO (Cinematic Opening) */
+        /* 5. HERO SECTION */
         .hero { 
             padding: 250px var(--side-padding) 100px; 
-            min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
+            min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
         }
-        .hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.85; margin-bottom: 40px; font-weight: 500; }
-        .hero p { max-width: 650px; font-size: 1.3rem; color: #888; line-height: 1.6; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.85; margin-bottom: 40px; }
 
-        /* 6. WORK SECTION (Spaced Out) */
-        .section-label { padding: 0 var(--side-padding); color: var(--accent); font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 50px; }
-        
+        /* 6. WORK SECTION (Spaced Blocks) */
         .work-section { padding-bottom: var(--section-gap); }
         .project-card { 
             display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; 
@@ -68,48 +79,48 @@
         .img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
         .project-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
         .info h3 { font-size: 2.5rem; margin-bottom: 20px; }
-        .info p { color: #888; font-size: 1.1rem; line-height: 1.6; }
+        .info p { color: #888; font-size: 1.1rem; line-height: 1.6; max-width: 400px; }
 
-        /* 7. SERVICES & ABOUT */
-        .grid-split { 
-            padding: var(--section-gap) var(--side-padding); 
-            background: var(--card-bg); border-top: 1px solid var(--border);
-            display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
-        }
-        .grid-split h4 { color: var(--accent); margin-bottom: 25px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
-        .grid-split p { font-size: 1.2rem; color: #888; margin-bottom: 30px; }
-
-        /* 8. CONTACT (Functional) */
-        .contact-area { padding: var(--section-gap) var(--side-padding); text-align: center; }
-        .contact-area h2 { font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 50px; }
-        form { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
-        input, textarea { padding: 25px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 1rem; }
+        /* 7. CONTACT FORM */
+        .contact-area { padding: var(--section-gap) var(--side-padding); border-top: 1px solid var(--border); }
+        .contact-area h2 { font-size: 3rem; margin-bottom: 50px; text-align: center; }
+        form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
         input:focus, textarea:focus { border-color: var(--accent); outline: none; }
-        
-        /* 9. REVEAL & UI ELEMENTS */
-        .reveal { opacity: 0; transform: translateY(60px); transition: 1.2s ease-out; }
+
+        /* 8. FOOTER */
+        footer { 
+            padding: 80px var(--side-padding); 
+            background: #000; color: #555; 
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border);
+        }
+        .footer-left p { margin-bottom: 10px; font-size: 0.9rem; }
+        .footer-right { display: flex; gap: 30px; }
+        .footer-right a { color: #888; text-decoration: none; font-size: 0.8rem; }
+
+        /* REVEAL & UI */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .btn { padding: 20px 50px; background: var(--accent); color: #000; text-decoration: none; font-weight: 700; border: none; align-self: center; cursor: none; }
-        .theme-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 18px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
+        .btn { padding: 20px 40px; background: var(--accent); color: #000; font-weight: 700; border: none; align-self: center; }
+        .theme-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 18px; border-radius: 50px; font-size: 0.7rem; }
 
         @media (max-width: 1024px) {
-            .project-card, .grid-split { grid-template-columns: 1fr; gap: 40px; }
-            header { padding: 30px 5%; }
+            .project-card { grid-template-columns: 1fr; gap: 40px; }
+            .hero { padding-top: 180px; }
             .nav-links { display: none; }
-            .img-wrap { height: 350px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="cursor"></div>
+    <div id="cursor-ball"></div>
 
     <header>
         <div class="logo">DIGITAL<span>TRADE</span></div>
         <nav>
             <ul class="nav-links">
                 <li><a href="#work">Work</a></li>
-                <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><button class="theme-btn" id="theme-btn">Theme</button></li>
             </ul>
@@ -118,84 +129,86 @@
 
     <main>
         <section class="hero">
-            <h1 class="reveal">Engineering <br><span style="color:var(--accent)">Visual Assets.</span></h1>
-            <p class="reveal">I build strategic brand identities and digital experiences for high-growth ventures. Based in Dantewada, serving the global market.</p>
+            <h1 class="reveal">Engineering <br><span style="color:var(--accent)">Brand Equity.</span></h1>
+            <p class="reveal" style="max-width:600px; color:#888; font-size: 1.2rem;">Graphic Design & Digital Strategy for Athrex Energy, Virox, and high-performance ventures.</p>
         </section>
 
-        <div class="section-label" id="work">Selected Portfolio</div>
-        <section class="work-section">
+        <section id="work" class="work-section">
             <div class="project-card reveal">
-                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Solar Branding"></div>
-                <div class="info">
-                    <h3>Athrex Energy</h3>
-                    <p>Comprehensive visual identity for solar energy service. Focused on reliability, industrial precision, and sustainable growth.</p>
-                </div>
+                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Athrex"></div>
+                <div class="info"><h3>Athrex Energy</h3><p>Solar branding and industrial identity designed for the clean energy transition.</p></div>
             </div>
             <div class="project-card reveal">
-                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="E-com UI"></div>
-                <div class="info">
-                    <h3>Virox Apparel</h3>
-                    <p>Modern e-commerce interface and packaging design. Engineered for high-conversion retail and digital-first branding.</p>
-                </div>
+                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Virox"></div>
+                <div class="info"><h3>Virox Apparel</h3><p>Direct-to-consumer UI/UX and digital marketing strategy for a modern lifestyle brand.</p></div>
             </div>
         </section>
 
-        <section class="grid-split reveal" id="about">
-            <div>
-                <h4>The Strategy</h4>
-                <p>Design is a business tool. I specialize in bridging the gap between artistic vision and commercial performance through technical branding and UI/UX design.</p>
-            </div>
-            <div>
-                <h4>Expertise</h4>
-                <p>Logo Systems / Product Packaging / Mobile UI / SEO Strategy / Marketing Kits</p>
-                <h4>Location</h4>
-                <p>Dantewada, CG / +91 9399097196</p>
-            </div>
-        </section>
-
-        <section class="contact-area reveal" id="contact">
-            <h2>Ready to Scale?</h2>
+        <section id="contact" class="contact-area reveal">
+            <h2>Let's Talk.</h2>
             <form action="https://formspree.io/f/YOUR_ID" method="POST">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="email" name="email" placeholder="Email Address" required>
-                <textarea name="message" rows="4" placeholder="How can I help you?"></textarea>
-                <button type="submit" class="btn">Send Inquiry</button>
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="5" placeholder="Your Project..."></textarea>
+                <button type="submit" class="btn">Send Message</button>
             </form>
         </section>
     </main>
 
+    <footer>
+        <div class="footer-left">
+            <p>Digital Trade Portfolio — 2026</p>
+            <p>Location: Dantewada, CG</p>
+            <p>Phone: +91 9399097196</p>
+        </div>
+        <div class="footer-right">
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Behance</a>
+        </div>
+    </footer>
+
     <script>
-        // 1. GPU-ACCELERATED CURSOR
-        const cursor = document.getElementById('cursor');
+        // 1. IMPROVED CURSOR TRACKING
+        const cursorBall = document.getElementById('cursor-ball');
+        
+        // Track mouse position globally
         document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Using requestAnimationFrame for high-performance 60fps movement
             window.requestAnimationFrame(() => {
-                cursor.style.transform = `translate3d(${e.clientX - 7}px, ${e.clientY - 7}px, 0)`;
+                cursorBall.style.transform = `translate3d(${x - 6}px, ${y - 6}px, 0)`;
             });
         });
 
-        // 2. INTERSECTION OBSERVER (For Scroll Reveals)
-        const obsOptions = { threshold: 0.15 };
+        // 2. CURSOR INTERACTIONS
+        const activeItems = document.querySelectorAll('a, button, .img-wrap, input, textarea');
+        activeItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                cursorBall.style.transform += ' scale(5)';
+                cursorBall.style.opacity = '0.5';
+            });
+            item.addEventListener('mouseleave', () => {
+                cursorBall.style.transform = cursorBall.style.transform.replace(' scale(5)', '');
+                cursorBall.style.opacity = '1';
+            });
+        });
+
+        // 3. SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, obsOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // 3. THEME SWITCHER (Saved to LocalStorage)
+        // 4. THEME TOGGLE
         const themeBtn = document.getElementById('theme-btn');
         themeBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
-            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-        });
-        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
-
-        // 4. CURSOR HOVER EFFECTS
-        const links = document.querySelectorAll('a, button, .img-wrap, input, textarea');
-        links.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(4)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = cursor.style.transform.replace(' scale(4)', ''));
         });
     </script>
 </body>
