@@ -3,207 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Trade | Master Portfolio</title>
+    <title>Digital Trade | Premium Design Agency</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505; --text: #ffffff; --accent: #00ffa3; --card: #111; --border: #222;
-            --header-bg: rgba(5, 5, 5, 0.95); --side: 8%;
+            --bg: #030303; --text: #ffffff; --accent: #00ffa3; --card: #0a0a0a; --border: #1a1a1a;
+            --header-bg: rgba(3, 3, 3, 0.85); --side: 8%;
         }
         .light-mode {
-            --bg: #ffffff; --text: #121212; --accent: #008f5d; --card: #f5f5f5; --border: #ddd;
-            --header-bg: rgba(255, 255, 255, 0.95);
+            --bg: #f2f2f2; --text: #121212; --accent: #008f5d; --card: #ffffff; --border: #dcdcdc;
+            --header-bg: rgba(242, 242, 242, 0.85);
         }
 
-        /* 1. THE DYNAMIC CURSOR FIX */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.3s; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.4s ease; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-        #custom-cursor {
-            width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
+        /* --- 1. PRELOADER --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg);
+            display: flex; justify-content: center; align-items: center; z-index: 99999999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader-text { font-size: 2rem; font-weight: 700; letter-spacing: 5px; color: var(--accent); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* --- 2. ADVANCED CURSOR (Dot + Ring) --- */
+        #cursor-dot {
+            width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999;
-            mix-blend-mode: difference; transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+            mix-blend-mode: difference;
         }
+        #cursor-ring {
+            width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 50%;
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999998;
+            transition: width 0.3s, height 0.3s, background 0.3s;
+            transform: translate(-50%, -50%); /* Center ring on dot */
+        }
+        .cursor-hover #cursor-ring { width: 80px; height: 80px; background: rgba(0, 255, 163, 0.1); border-color: transparent; }
 
-        /* Cursor state for clickable items */
-        #custom-cursor.pointer {
-            width: 40px; height: 40px; background: rgba(0, 255, 163, 0.3);
-            border: 2px solid var(--accent);
-        }
-
-        /* 2. HEADER & NAVIGATION */
-        header { 
-            position: fixed; top: 0; width: 100%; padding: 25px var(--side); 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; background: var(--header-bg); border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-        }
+        /* --- HEADER --- */
+        header { position: fixed; top: 0; width: 100%; padding: 25px var(--side); display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: var(--header-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
         .logo { font-weight: 700; font-size: 1.5rem; }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
 
-        /* 3. HERO SECTION */
-        .hero { padding: 220px var(--side) 100px; min-height: 80vh; }
-        .hero h1 { font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 0.85; margin-bottom: 30px; }
-
-        /* 4. THE GALLERY (FIXED SLIDER) */
-        .gallery-container { padding: 100px var(--side); position: relative; }
-        .slider-wrapper { display: flex; overflow-x: auto; gap: 40px; padding-bottom: 50px; scroll-snap-type: x mandatory; scrollbar-width: none; }
-        .slider-wrapper::-webkit-scrollbar { display: none; }
+        /* --- HERO --- */
+        .hero { padding: 250px var(--side) 100px; min-height: 90vh; position: relative; }
+        .hero h1 { font-size: clamp(3.5rem, 9vw, 7.5rem); line-height: 0.85; margin-bottom: 30px; letter-spacing: -2px; }
         
-        .slide { 
-            min-width: 450px; height: 600px; background: var(--card); border: 1px solid var(--border);
-            scroll-snap-align: center; border-radius: 12px; overflow: hidden; position: relative;
+        /* --- 3. INFINITE MARQUEE --- */
+        .marquee-container {
+            width: 100%; overflow: hidden; white-space: nowrap; background: var(--accent);
+            padding: 15px 0; color: #000; font-weight: 700; font-size: 1.2rem; text-transform: uppercase;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
         }
-        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.8s; }
-        .slide:hover img { opacity: 1; transform: scale(1.05); }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* 5. PRICING & SERVICES */
-        .pricing { padding: 120px var(--side); background: var(--card); }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
-        .price-card { border: 1px solid var(--border); padding: 50px; background: var(--bg); border-radius: 8px; }
-        .price-card h3 { color: var(--accent); margin-bottom: 15px; }
-        .price-card .amount { font-size: 2.5rem; font-weight: 700; margin-bottom: 30px; }
-        .price-card ul { list-style: none; color: #888; line-height: 2.5; }
+        /* --- WORK GALLERY --- */
+        .gallery-container { padding: 120px var(--side); }
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 50px; padding-bottom: 60px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .slider-wrapper::-webkit-scrollbar { display: none; }
+        .slide { min-width: 500px; height: 650px; background: var(--card); border: 1px solid var(--border); scroll-snap-align: center; border-radius: 8px; overflow: hidden; position: relative; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
+        .slide:hover img { opacity: 1; transform: scale(1.08); }
+        .slide-info { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 4px; border: 1px solid #333; backdrop-filter: blur(5px); }
 
-        /* 6. CONTACT & FOOTER */
-        .contact { padding: 120px var(--side); text-align: center; }
+        /* --- MAGNETIC CONTACT BUTTON & FORM --- */
+        .contact { padding: 150px var(--side); text-align: center; background: var(--card); border-top: 1px solid var(--border); }
         .form-box { max-width: 650px; margin: 50px auto; display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 4px; }
-
-        footer { padding: 80px var(--side); border-top: 1px solid var(--border); background: var(--card); }
-        .f-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; }
-        .f-col h4 { color: var(--accent); margin-bottom: 25px; font-size: 0.8rem; text-transform: uppercase; }
-        .f-col p { font-size: 0.9rem; color: #777; margin-bottom: 10px; }
-
-        /* 7. BACK TO TOP BUTTON */
-        #backToTop {
-            position: fixed; bottom: 40px; right: 40px; width: 50px; height: 50px;
-            background: var(--accent); border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s;
+        input, textarea { padding: 25px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 4px; font-size: 1rem; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        
+        .magnetic-btn {
+            padding: 25px 50px; background: var(--accent); color: #000; font-weight: 700; font-size: 1.1rem;
+            border: none; border-radius: 50px; margin: 30px auto; display: inline-block; transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        #backToTop.show { opacity: 1; visibility: visible; }
 
-        /* UI ANIMATIONS */
-        .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease-out; }
+        footer { padding: 60px var(--side); border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; }
+
+        .reveal { opacity: 0; transform: translateY(60px); transition: 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .btn { padding: 20px 45px; background: var(--accent); color: #000; font-weight: 700; border: none; text-transform: uppercase; letter-spacing: 1px; }
+
+        @media (max-width: 768px) { .slide { min-width: 300px; height: 450px; } }
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
+    <div id="preloader">
+        <div class="loader-text">DIGITAL TRADE.</div>
+    </div>
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
 
     <header>
         <div class="logo">DIGITAL<span>TRADE</span></div>
         <nav>
             <ul class="nav-links">
-                <li><a href="#work">Work</a></li>
-                <li><a href="#prices">Prices</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><button onclick="document.body.classList.toggle('light-mode')" style="background:var(--accent); border:none; padding:5px 15px; border-radius:20px; font-weight:700;">MODE</button></li>
+                <li><a href="#work" class="hover-target">Work</a></li>
+                <li><a href="#contact" class="hover-target">Contact</a></li>
+                <li><button onclick="document.body.classList.toggle('light-mode')" class="hover-target" style="background:var(--accent); border:none; padding:8px 18px; border-radius:50px; font-weight:700;">MODE</button></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero reveal">
-            <h1>Identity <span style="color:var(--accent)">Engineered</span> for Digital Trade.</h1>
-            <p style="color: #888; max-width: 600px; margin-top: 30px; font-size: 1.2rem;">High-performance branding and UI/UX for Athrex Energy, Virox Apparel, and modern ventures. Based in Dantewada.</p>
+            <h1>Strategic <span style="color:var(--accent)">Brand</span> <br>Architecture.</h1>
+            <p style="color: #888; max-width: 600px; margin-top: 30px; font-size: 1.3rem;">Engineering visual equity for Athrex Energy, Virox Apparel, and elite digital commerce.</p>
         </section>
+
+        <div class="marquee-container">
+            <div class="marquee-content">
+                BRANDING • UI/UX DESIGN • PACKAGING • SEO STRATEGY • DIGITAL TRADE • BRANDING • UI/UX DESIGN • PACKAGING • SEO STRATEGY • DIGITAL TRADE • 
+            </div>
+        </div>
 
         <section id="work" class="gallery-container reveal">
-            <h2 style="margin-bottom: 40px;">Selected Portfolio (Scroll Sideways)</h2>
             <div class="slider-wrapper">
-                <div class="slide"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Work 1"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Work 2"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200" alt="Work 3"></div>
-                <div class="slide"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200" alt="Work 4"></div>
-            </div>
-        </section>
-
-        <section id="prices" class="pricing reveal">
-            <h2>Our Service Packages</h2>
-            <div class="pricing-grid">
-                <div class="price-card">
-                    <h3>Startup Branding</h3>
-                    <div class="amount">₹15,000</div>
-                    <ul><li>Logo System</li><li>Brand Colors</li><li>Business Cards</li><li>Social Templates</li></ul>
+                <div class="slide hover-target">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Athrex">
+                    <div class="slide-info"><h3 style="color:var(--accent)">Athrex Energy</h3><p style="color:#ccc; font-size:0.9rem;">Clean Tech Identity</p></div>
                 </div>
-                <div class="price-card" style="border-color:var(--accent)">
-                    <h3>Digital Scale</h3>
-                    <div class="amount">₹45,000</div>
-                    <ul><li>Full Identity</li><li>UI/UX Design</li><li>Marketing Assets</li><li>Packaging Design</li></ul>
+                <div class="slide hover-target">
+                    <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Virox">
+                    <div class="slide-info"><h3 style="color:var(--accent)">Virox Apparel</h3><p style="color:#ccc; font-size:0.9rem;">E-Commerce UI/UX</p></div>
                 </div>
-                <div class="price-card">
-                    <h3>Enterprise</h3>
-                    <div class="amount">Custom</div>
-                    <ul><li>Full Strategy</li><li>3D Rendering</li><li>App Development</li><li>Long-term Support</li></ul>
+                <div class="slide hover-target">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200" alt="Trade">
+                    <div class="slide-info"><h3 style="color:var(--accent)">Digital Trade</h3><p style="color:#ccc; font-size:0.9rem;">Premium Packaging</p></div>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="contact reveal">
-            <h2>Ready to Start?</h2>
+            <h2 style="font-size: 3rem; margin-bottom: 20px;">Let's Build.</h2>
+            <p style="color: #888;">+91 9399097196 | Dantewada, CG</p>
             <form class="form-box" action="https://formspree.io/f/YOUR_ID" method="POST">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea rows="5" placeholder="Tell us about Athrex or Virox projects..."></textarea>
-                <button type="submit" class="btn">Send Inquiry</button>
+                <input type="text" placeholder="Full Name" required class="hover-target">
+                <input type="email" placeholder="Email Address" required class="hover-target">
+                <textarea rows="5" placeholder="Project specifics..." class="hover-target"></textarea>
+                <button type="submit" class="magnetic-btn hover-target" id="mag-btn">Initiate Project</button>
             </form>
         </section>
     </main>
 
-    <a href="#" id="backToTop">↑</a>
-
     <footer>
-        <div class="f-grid">
-            <div class="f-col">
-                <div class="logo">DIGITAL<span>TRADE</span></div>
-                <p style="margin-top: 20px;">Visual strategy for the next generation of commerce.</p>
-            </div>
-            <div class="f-col">
-                <h4>Capabilities</h4>
-                <p>Branding / Logo</p><p>UI / UX Design</p><p>3D Packaging</p>
-            </div>
-            <div class="f-col">
-                <h4>Connect</h4>
-                <p>+91 9399097196</p>
-                <p>Dantewada, Chhattisgarh</p>
-                <p>trade@digital.com</p>
-            </div>
-        </div>
+        <p>© 2026 DIGITAL TRADE</p>
+        <p>ENGINEERED IN DANTEWADA</p>
     </footer>
 
     <script>
-        // 1. DYNAMIC CURSOR LOGIC
-        const cursor = document.getElementById('custom-cursor');
-        document.addEventListener('mousemove', (e) => {
-            window.requestAnimationFrame(() => {
-                cursor.style.transform = `translate3d(${e.clientX - 7}px, ${e.clientY - 7}px, 0)`;
-            });
+        // 1. PRELOADER LOGIC
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1000); // 1 second delay for effect
         });
 
-        // Add 'pointer' class to cursor when touching clickables
-        const clickables = document.querySelectorAll('a, button, .slide, input, textarea');
-        clickables.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('pointer'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('pointer'));
+        // 2. ADVANCED CURSOR (DOT + RING)
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let ringX = mouseX, ringY = mouseY;
+
+        // Track exact mouse position for the dot
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            dot.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`;
         });
 
-        // 2. BACK TO TOP BUTTON
-        const btt = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) btt.classList.add('show');
-            else btt.classList.remove('show');
+        // Smooth trailing animation for the ring
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.15; // The 0.15 controls the "drag/delay"
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.left = `${ringX}px`;
+            ring.style.top = `${ringY}px`;
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Cursor Hover States
+        document.querySelectorAll('.hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
 
-        // 3. REVEAL ANIMATIONS
+        // 3. MAGNETIC BUTTON LOGIC
+        const magBtn = document.getElementById('mag-btn');
+        magBtn.addEventListener('mousemove', (e) => {
+            const rect = magBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            // Pull the button towards the mouse slightly
+            magBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        magBtn.addEventListener('mouseleave', () => {
+            // Snap back to center
+            magBtn.style.transform = `translate(0px, 0px)`;
+        });
+
+        // 4. SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
