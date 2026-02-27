@@ -8,126 +8,188 @@
     <style>
         :root {
             --bg: #050505; --text: #ffffff; --accent: #00ffa3; --card: #0f0f0f; --border: #222;
-            --side: 8%; --gap: 150px;
+            --side: 8%; --gap: 140px;
         }
         .light-mode { --bg: #f5f5f5; --text: #121212; --accent: #00a86b; --card: #ffffff; --border: #ddd; }
 
-        /* --- THE CURSOR FIX: SYSTEM WIDE --- */
+        /* --- THE ULTIMATE CURSOR FIX --- */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
-        
         body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.4s; }
 
-        #cursor-fix {
+        #cursor-ball {
             width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
             position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999999;
-            mix-blend-mode: difference; will-change: transform; transform: translate(-50%, -50%);
+            mix-blend-mode: difference; transition: transform 0.1s ease-out;
         }
 
-        /* --- LAYOUT & SPACING --- */
-        header { position: fixed; top: 0; width: 100%; padding: 40px var(--side); display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-        .logo { font-weight: 700; font-size: 1.5rem; }
+        /* --- NAVIGATION --- */
+        header { position: fixed; top: 0; width: 100%; padding: 30px var(--side); display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(5,5,5,0.8); backdrop-filter: blur(10px); }
+        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; }
         .logo span { color: var(--accent); }
-        
-        .hero { padding: 250px var(--side) 100px; min-height: 90vh; }
+        .nav-links { display: flex; gap: 25px; list-style: none; }
+        .nav-links a { text-decoration: none; color: inherit; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- HERO --- */
+        .hero { padding: 250px var(--side) 100px; min-height: 80vh; }
         .hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 30px; }
+        .hero p { color: #888; max-width: 500px; font-size: 1.2rem; }
 
-        .project-card { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; padding: 0 var(--side) var(--gap); align-items: center; }
-        .img-wrap { height: 500px; overflow: hidden; border: 1px solid var(--border); background: #111; }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 1s; }
-        .project-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        /* --- WORK GALLERY (CAROUSEL EFFECT) --- */
+        .work-gallery { padding: var(--gap) var(--side); }
+        .carousel-container { display: flex; overflow-x: scroll; gap: 30px; padding-bottom: 30px; scroll-snap-type: x mandatory; }
+        .carousel-container::-webkit-scrollbar { display: none; }
+        .work-item { min-width: 600px; height: 400px; background: #111; border: 1px solid var(--border); scroll-snap-align: start; position: relative; overflow: hidden; }
+        .work-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+        .work-item:hover img { opacity: 1; transform: scale(1.05); }
+        .work-label { position: absolute; bottom: 30px; left: 30px; }
 
-        /* --- NEW: TESTIMONIALS --- */
-        .testimonials { padding: var(--gap) var(--side); background: var(--card); border-top: 1px solid var(--border); }
-        .t-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .t-card { border-left: 2px solid var(--accent); padding-left: 20px; }
-        .t-card p { font-style: italic; color: #888; margin-bottom: 15px; }
+        /* --- PRICING SECTION --- */
+        .pricing { padding: var(--gap) var(--side); background: var(--card); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+        .price-card { border: 1px solid var(--border); padding: 40px; transition: 0.3s; }
+        .price-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .price-card h3 { color: var(--accent); margin-bottom: 10px; }
+        .price-card .cost { font-size: 2rem; font-weight: 700; margin-bottom: 20px; }
+        .price-card ul { list-style: none; color: #888; font-size: 0.9rem; line-height: 2; }
 
-        /* --- CONTACT & FOOTER --- */
-        .contact { padding: var(--gap) var(--side); text-align: center; }
-        form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        /* --- ABOUT & CONTACT --- */
+        .about-contact { padding: var(--gap) var(--side); display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+        form { display: flex; flex-direction: column; gap: 20px; }
         input, textarea { padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
-        
-        footer { padding: 60px var(--side); border-top: 1px solid var(--border); display: flex; justify-content: space-between; color: #555; font-size: 0.8rem; }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease-out; }
+        /* --- ENHANCED FOOTER --- */
+        footer { padding: 100px var(--side); background: #000; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
+        .footer-col h4 { color: var(--accent); margin-bottom: 20px; font-size: 0.8rem; text-transform: uppercase; }
+        .footer-col p, .footer-col a { color: #666; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 10px; }
+        .footer-bottom { margin-top: 80px; padding-top: 30px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; display: flex; justify-content: space-between; }
+
+        /* UTILS */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .btn { padding: 20px 40px; background: var(--accent); color: #000; font-weight: 700; border: none; align-self: center; }
-        .theme-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; }
+        .theme-btn { background: var(--accent); color: #000; border: none; padding: 5px 15px; border-radius: 20px; font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <div id="cursor-fix"></div>
+    <div id="cursor-ball"></div>
 
     <header>
         <div class="logo">DIGITAL<span>TRADE</span></div>
-        <nav style="display: flex; gap: 30px; align-items: center;">
-            <a href="#work" style="text-decoration: none; color: inherit; font-size: 0.7rem; text-transform: uppercase;">Work</a>
-            <button class="theme-btn" onclick="document.body.classList.toggle('light-mode')">Theme</button>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#prices">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+                <li><button class="theme-btn" onclick="document.body.classList.toggle('light-mode')">Theme</button></li>
+            </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero reveal">
-            <h1>Branding <br><span style="color:var(--accent)">Engineered.</span></h1>
-            <p style="color:#888; max-width: 500px;">Strategic visual assets for Athrex Energy, Virox Apparel, and Digital Trade clients.</p>
+            <h1>Design for <br><span style="color:var(--accent)">Scale.</span></h1>
+            <p>From Athrex Energy to Virox Apparel—we build the visual capital required to win in modern trade.</p>
         </section>
 
-        <section id="work">
-            <div class="project-card reveal">
-                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200"></div>
-                <div class="info"><h3>Athrex Energy</h3><p>Solar identity system designed for renewable growth.</p></div>
-            </div>
-            <div class="project-card reveal" style="grid-template-columns: 0.8fr 1.2fr;">
-                <div class="info"><h3>Virox Apparel</h3><p>Lifestyle branding and mobile-first UI/UX strategy.</p></div>
-                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200"></div>
+        <section id="work" class="work-gallery reveal">
+            <h2 style="margin-bottom: 40px;">Selected Gallery (Scroll →)</h2>
+            <div class="carousel-container">
+                <div class="work-item">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200">
+                    <div class="work-label"><h3>Athrex Identity</h3><p>Solar & Energy</p></div>
+                </div>
+                <div class="work-item">
+                    <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200">
+                    <div class="work-label"><h3>Virox Store</h3><p>UI/UX Design</p></div>
+                </div>
+                <div class="work-item">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200">
+                    <div class="work-label"><h3>Trade Packaging</h3><p>Product Design</p></div>
+                </div>
             </div>
         </section>
 
-        <section class="testimonials reveal">
-            <h4 style="margin-bottom: 40px; color:var(--accent)">Client Feedback</h4>
-            <div class="t-grid">
-                <div class="t-card"><p>"The branding for Athrex completely changed how our clients perceive us. Professional and clean."</p><strong>— Athrex Energy Team</strong></div>
-                <div class="t-card"><p>"Virox now has a digital storefront that actually converts. The UI/UX is flawless."</p><strong>— Virox Apparel</strong></div>
+        <section id="prices" class="pricing reveal">
+            <h2>Service Packages</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Essentials</h3>
+                    <div class="cost">₹9,999</div>
+                    <ul><li>Logo Design</li><li>Business Cards</li><li>Brand Colors</li></ul>
+                </div>
+                <div class="price-card" style="border-color: var(--accent);">
+                    <h3>Growth</h3>
+                    <div class="cost">₹24,999</div>
+                    <ul><li>Full Branding</li><li>UI/UX Landing Page</li><li>Social Media Kit</li></ul>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="cost">Custom</div>
+                    <ul><li>Full Strategy</li><li>App Design</li><li>Packaging & SEO</li></ul>
+                </div>
             </div>
         </section>
 
-        <section class="contact reveal" id="contact">
-            <h2>Start a Project</h2>
-            <form action="https://formspree.io/f/YOUR_ID" method="POST">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea rows="5" placeholder="Details..."></textarea>
-                <button type="submit" class="btn">Send Request</button>
-            </form>
+        <section id="about" class="about-contact reveal">
+            <div>
+                <h2 style="margin-bottom: 20px;">About Me</h2>
+                <p style="color:#888; font-size: 1.1rem; line-height: 1.8;">I am a specialist in Digital Trade assets. My design philosophy is rooted in performance. Based in Dantewada, I help brands like Virox and Athrex transform their vision into high-performance visual systems.</p>
+            </div>
+            <div>
+                <h2 style="margin-bottom: 20px;">Contact</h2>
+                <form action="https://formspree.io/f/YOUR_ID" method="POST">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <textarea rows="4" placeholder="Your Project Requirements"></textarea>
+                    <button type="submit" style="padding: 20px; background: var(--accent); border: none; font-weight: 700;">Send Inquiry</button>
+                </form>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2026 DIGITAL TRADE | DANTEWADA, CG</p>
-        <p>+91 9399097196</p>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">DIGITAL<span>TRADE</span></div>
+                <p style="margin-top: 20px;">Engineering visual equity for high-growth ventures since 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Sitemap</h4>
+                <a href="#work">Portfolio</a>
+                <a href="#prices">Pricing</a>
+                <a href="#about">About</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>+91 9399097196</p>
+                <p>Dantewada, Chhattisgarh</p>
+                <p>trade@digital.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 DIGITAL TRADE PORTFOLIO. ALL RIGHTS RESERVED.</p>
+            <p>DESIGNED BY YOU.</p>
+        </div>
     </footer>
 
     <script>
-        const cursor = document.getElementById('cursor-fix');
+        const cursor = document.getElementById('cursor-ball');
         
-        // GLOBAL MOUSE TRACKER
+        // GPU TRACKING
         window.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            // Immediate GPU-accelerated movement
-            cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            window.requestAnimationFrame(() => {
+                cursor.style.transform = `translate3d(${e.clientX - 7}px, ${e.clientY - 7}px, 0)`;
+            });
         });
 
-        // HOVER SCALING
-        document.querySelectorAll('a, button, input, textarea, .img-wrap').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.width = '60px');
-            el.addEventListener('mouseenter', () => cursor.style.height = '60px');
-            el.addEventListener('mouseleave', () => cursor.style.width = '15px');
-            el.addEventListener('mouseleave', () => cursor.style.height = '15px');
+        // HOVER EFFECTS
+        document.querySelectorAll('a, button, input, textarea, .work-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(5)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = cursor.style.transform.replace(' scale(5)', ''));
         });
 
-        // REVEAL LOGIC
+        // REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
