@@ -3,209 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Trade | Professional Design Agency</title>
+    <title>Digital Trade | Master Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* 1. POWERFUL THEME SYSTEM */
         :root {
-            --bg: #050505;
-            --text: #ffffff;
-            --accent: #00ffa3;
-            --card: #111111;
-            --border: #222222;
-            --header-bg: rgba(5, 5, 5, 0.9);
-            --side: 8%;
-            --section-gap: 120px;
+            --bg: #050505; --text: #ffffff; --accent: #00ffa3; --card: #111; --border: #222;
+            --header-bg: rgba(5, 5, 5, 0.95); --side: 8%;
         }
-
-        /* LIGHT THEME FIX */
         .light-mode {
-            --bg: #ffffff;
-            --text: #121212;
-            --accent: #008f5d;
-            --card: #f8f8f8;
-            --border: #e0e0e0;
-            --header-bg: rgba(255, 255, 255, 0.9);
+            --bg: #ffffff; --text: #121212; --accent: #008f5d; --card: #f5f5f5; --border: #ddd;
+            --header-bg: rgba(255, 255, 255, 0.95);
         }
 
-        /* 2. CORE RESET - BACK TO NORMAL CURSOR */
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: auto !important; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.3s ease; }
+        /* 1. THE DYNAMIC CURSOR FIX */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.3s; }
 
-        /* 3. HEADER FIX */
+        #custom-cursor {
+            width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999;
+            mix-blend-mode: difference; transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+        }
+
+        /* Cursor state for clickable items */
+        #custom-cursor.pointer {
+            width: 40px; height: 40px; background: rgba(0, 255, 163, 0.3);
+            border: 2px solid var(--accent);
+        }
+
+        /* 2. HEADER & NAVIGATION */
         header { 
             position: fixed; top: 0; width: 100%; padding: 25px var(--side); 
             display: flex; justify-content: space-between; align-items: center; 
             z-index: 1000; background: var(--header-bg); border-bottom: 1px solid var(--border);
             backdrop-filter: blur(10px);
         }
-        .logo { font-weight: 700; font-size: 1.5rem; color: var(--text); }
+        .logo { font-weight: 700; font-size: 1.5rem; }
         .logo span { color: var(--accent); }
         .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
 
-        /* 4. HERO SECTION */
-        .hero { padding: 220px var(--side) 80px; min-height: 70vh; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; margin-bottom: 30px; }
-        .accent-text { color: var(--accent); }
+        /* 3. HERO SECTION */
+        .hero { padding: 220px var(--side) 100px; min-height: 80vh; }
+        .hero h1 { font-size: clamp(3.5rem, 9vw, 6.5rem); line-height: 0.85; margin-bottom: 30px; }
 
-        /* 5. SMOOTH CAROUSEL GALLERY */
-        .gallery-section { padding: var(--section-gap) var(--side); }
-        .carousel { 
-            display: flex; gap: 30px; overflow-x: auto; padding-bottom: 40px;
-            scroll-snap-type: x mandatory; scrollbar-width: none; 
+        /* 4. THE GALLERY (FIXED SLIDER) */
+        .gallery-container { padding: 100px var(--side); position: relative; }
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 40px; padding-bottom: 50px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .slider-wrapper::-webkit-scrollbar { display: none; }
+        
+        .slide { 
+            min-width: 450px; height: 600px; background: var(--card); border: 1px solid var(--border);
+            scroll-snap-align: center; border-radius: 12px; overflow: hidden; position: relative;
         }
-        .carousel::-webkit-scrollbar { display: none; }
-        .carousel-item { 
-            min-width: 350px; height: 500px; background: var(--card); 
-            border: 1px solid var(--border); scroll-snap-align: center;
-            position: relative; overflow: hidden; border-radius: 8px;
-        }
-        .carousel-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; }
-        .carousel-item:hover img { opacity: 1; transform: scale(1.05); }
+        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.8s; }
+        .slide:hover img { opacity: 1; transform: scale(1.05); }
 
-        /* 6. DETAILED PRICING MATRIX */
-        .pricing { padding: var(--section-gap) var(--side); background: var(--card); }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
-        .price-card { border: 1px solid var(--border); padding: 40px; background: var(--bg); transition: 0.3s; }
-        .price-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .price-card .cost { font-size: 2.5rem; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
-        .price-card ul { list-style: none; color: #888; font-size: 0.9rem; line-height: 2.5; }
+        /* 5. PRICING & SERVICES */
+        .pricing { padding: 120px var(--side); background: var(--card); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
+        .price-card { border: 1px solid var(--border); padding: 50px; background: var(--bg); border-radius: 8px; }
+        .price-card h3 { color: var(--accent); margin-bottom: 15px; }
+        .price-card .amount { font-size: 2.5rem; font-weight: 700; margin-bottom: 30px; }
+        .price-card ul { list-style: none; color: #888; line-height: 2.5; }
 
-        /* 7. CONTACT SECTION */
-        .contact { padding: var(--section-gap) var(--side); text-align: center; }
-        .contact-form { max-width: 600px; margin: 50px auto; display: flex; flex-direction: column; gap: 15px; }
-        input, textarea { padding: 18px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 4px; }
+        /* 6. CONTACT & FOOTER */
+        .contact { padding: 120px var(--side); text-align: center; }
+        .form-box { max-width: 650px; margin: 50px auto; display: flex; flex-direction: column; gap: 20px; }
+        input, textarea { padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 4px; }
 
-        /* 8. FOOTER UPGRADE */
         footer { padding: 80px var(--side); border-top: 1px solid var(--border); background: var(--card); }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-col h4 { color: var(--accent); margin-bottom: 20px; font-size: 0.9rem; text-transform: uppercase; }
-        .footer-col p { font-size: 0.9rem; color: #777; line-height: 1.8; }
-        .socials { display: flex; gap: 15px; margin-top: 15px; }
-        .socials a { color: var(--text); text-decoration: none; font-size: 1.2rem; }
+        .f-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; }
+        .f-col h4 { color: var(--accent); margin-bottom: 25px; font-size: 0.8rem; text-transform: uppercase; }
+        .f-col p { font-size: 0.9rem; color: #777; margin-bottom: 10px; }
 
-        /* UI ELEMENTS */
-        .btn { padding: 18px 40px; background: var(--accent); color: #000; border: none; font-weight: 700; cursor: pointer !important; text-transform: uppercase; }
-        .theme-btn { padding: 8px 18px; border-radius: 50px; background: var(--accent); border: none; font-weight: 700; cursor: pointer !important; font-size: 0.7rem; }
+        /* 7. BACK TO TOP BUTTON */
+        #backToTop {
+            position: fixed; bottom: 40px; right: 40px; width: 50px; height: 50px;
+            background: var(--accent); border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        #backToTop.show { opacity: 1; visibility: visible; }
+
+        /* UI ANIMATIONS */
         .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        .btn { padding: 20px 45px; background: var(--accent); color: #000; font-weight: 700; border: none; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
+
+    <div id="custom-cursor"></div>
 
     <header>
         <div class="logo">DIGITAL<span>TRADE</span></div>
         <nav>
             <ul class="nav-links">
                 <li><a href="#work">Work</a></li>
-                <li><a href="#prices">Pricing</a></li>
+                <li><a href="#prices">Prices</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><button class="theme-btn" id="t-toggle">Mode</button></li>
+                <li><button onclick="document.body.classList.toggle('light-mode')" style="background:var(--accent); border:none; padding:5px 15px; border-radius:20px; font-weight:700;">MODE</button></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero reveal">
-            <h1>Expert <span class="accent-text">Identity</span> <br>Design & Trade.</h1>
-            <p style="color: #777; max-width: 550px; margin-top: 20px;">Strategic branding for Athrex Energy, Virox Apparel, and digital leaders. We don't just design; we build business assets.</p>
+            <h1>Identity <span style="color:var(--accent)">Engineered</span> for Digital Trade.</h1>
+            <p style="color: #888; max-width: 600px; margin-top: 30px; font-size: 1.2rem;">High-performance branding and UI/UX for Athrex Energy, Virox Apparel, and modern ventures. Based in Dantewada.</p>
         </section>
 
-        <section id="work" class="gallery-section reveal">
-            <h2 style="margin-bottom: 40px;">Portfolio Gallery (Swipe)</h2>
-            <div class="carousel">
-                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800"></div>
-                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=800"></div>
-                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800"></div>
-                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800"></div>
+        <section id="work" class="gallery-container reveal">
+            <h2 style="margin-bottom: 40px;">Selected Portfolio (Scroll Sideways)</h2>
+            <div class="slider-wrapper">
+                <div class="slide"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Work 1"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Work 2"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200" alt="Work 3"></div>
+                <div class="slide"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200" alt="Work 4"></div>
             </div>
         </section>
 
         <section id="prices" class="pricing reveal">
-            <h2>Digital Trade Packages</h2>
+            <h2>Our Service Packages</h2>
             <div class="pricing-grid">
                 <div class="price-card">
-                    <h3>Startup Identity</h3>
-                    <div class="cost">₹12,000</div>
-                    <ul>
-                        <li>✔ Premium Logo Design</li>
-                        <li>✔ Business Stationery</li>
-                        <li>✔ Brand Style Guide</li>
-                        <li>✔ Social Media Kit</li>
-                    </ul>
+                    <h3>Startup Branding</h3>
+                    <div class="amount">₹15,000</div>
+                    <ul><li>Logo System</li><li>Brand Colors</li><li>Business Cards</li><li>Social Templates</li></ul>
                 </div>
-                <div class="price-card" style="border-color: var(--accent);">
-                    <h3>Digital Growth</h3>
-                    <div class="cost">₹35,000</div>
-                    <ul>
-                        <li>✔ Everything in Startup</li>
-                        <li>✔ UI/UX Landing Page</li>
-                        <li>✔ Marketing Strategy</li>
-                        <li>✔ Professional Packaging</li>
-                    </ul>
+                <div class="price-card" style="border-color:var(--accent)">
+                    <h3>Digital Scale</h3>
+                    <div class="amount">₹45,000</div>
+                    <ul><li>Full Identity</li><li>UI/UX Design</li><li>Marketing Assets</li><li>Packaging Design</li></ul>
                 </div>
                 <div class="price-card">
-                    <h3>Enterprise Pack</h3>
-                    <div class="cost">Custom</div>
-                    <ul>
-                        <li>✔ Full Corporate Identity</li>
-                        <li>✔ E-commerce Ecosystem</li>
-                        <li>✔ 3D Mockups & Motion</li>
-                        <li>✔ Long-term Maintenance</li>
-                    </ul>
+                    <h3>Enterprise</h3>
+                    <div class="amount">Custom</div>
+                    <ul><li>Full Strategy</li><li>3D Rendering</li><li>App Development</li><li>Long-term Support</li></ul>
                 </div>
             </div>
         </section>
 
         <section id="contact" class="contact reveal">
-            <h2>Start a Project</h2>
-            <p>Direct Line: +91 9399097196 | Dantewada, CG</p>
-            <form class="contact-form" action="https://formspree.io/f/YOUR_ID" method="POST">
+            <h2>Ready to Start?</h2>
+            <form class="form-box" action="https://formspree.io/f/YOUR_ID" method="POST">
                 <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Email Address" required>
-                <textarea rows="4" placeholder="Tell us about Athrex or Virox projects..."></textarea>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Tell us about Athrex or Virox projects..."></textarea>
                 <button type="submit" class="btn">Send Inquiry</button>
             </form>
         </section>
     </main>
 
+    <a href="#" id="backToTop">↑</a>
+
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
+        <div class="f-grid">
+            <div class="f-col">
                 <div class="logo">DIGITAL<span>TRADE</span></div>
-                <p>Strategic Design. Commercial Results.</p>
+                <p style="margin-top: 20px;">Visual strategy for the next generation of commerce.</p>
             </div>
-            <div class="footer-col">
+            <div class="f-col">
                 <h4>Capabilities</h4>
-                <p>Branding & Logo Design</p>
-                <p>UI/UX & Web Systems</p>
-                <p>Product Packaging</p>
+                <p>Branding / Logo</p><p>UI / UX Design</p><p>3D Packaging</p>
             </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <p>Email: contact@digitaltrade.com</p>
-                <p>Phone: +91 9399097196</p>
-                <p>Loc: Dantewada, Chhattisgarh</p>
+            <div class="f-col">
+                <h4>Connect</h4>
+                <p>+91 9399097196</p>
+                <p>Dantewada, Chhattisgarh</p>
+                <p>trade@digital.com</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // 1. THEME TOGGLE FIX
-        const tBtn = document.getElementById('t-toggle');
-        tBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
+        // 1. DYNAMIC CURSOR LOGIC
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            window.requestAnimationFrame(() => {
+                cursor.style.transform = `translate3d(${e.clientX - 7}px, ${e.clientY - 7}px, 0)`;
+            });
         });
 
-        // 2. SCROLL REVEAL
+        // Add 'pointer' class to cursor when touching clickables
+        const clickables = document.querySelectorAll('a, button, .slide, input, textarea');
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('pointer'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('pointer'));
+        });
+
+        // 2. BACK TO TOP BUTTON
+        const btt = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) btt.classList.add('show');
+            else btt.classList.remove('show');
+        });
+
+        // 3. REVEAL ANIMATIONS
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
