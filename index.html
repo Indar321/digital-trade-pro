@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Trade | Graphic Design & Branding</title>
+    <meta name="description" content="Strategic Branding, UI/UX, and Packaging Design for Athrex Energy, Virox, and beyond.">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. CSS VARIABLES & THEMES */
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --accent: #00ffa3;
+            --card-bg: #0f0f0f;
+            --border: #222;
+            --space-xl: 180px;
+            --space-lg: 100px;
+            --side-padding: 10%;
+        }
+
+        .light-mode {
+            --bg: #f5f5f5;
+            --text: #121212;
+            --accent: #00a16b;
+            --card-bg: #ffffff;
+            --border: #ddd;
+        }
+
+        /* 2. RESET & GLOBAL STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.5s ease; }
+
+        /* 3. CURSOR (Highest Z-Index) */
+        #cursor {
+            width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 999999;
+            mix-blend-mode: difference; transition: transform 0.1s ease-out;
+        }
+
+        /* 4. NAVIGATION */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 40px var(--side-padding); 
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+        }
+        .logo { font-weight: 700; font-size: 1.4rem; letter-spacing: -1px; }
+        .logo span { color: var(--accent); }
+        .nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* 5. HERO SECTION (Proper Spacing) */
+        .hero { 
+            padding: 250px var(--side-padding) 100px; 
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
+        }
+        .hero h1 { font-size: clamp(3.5rem, 10vw, 7.5rem); line-height: 0.9; margin-bottom: 40px; font-weight: 500; }
+        .hero p { max-width: 600px; font-size: 1.2rem; color: #888; margin-bottom: 50px; }
+
+        /* 6. PROJECT GRID (Cinematic Spacing) */
+        .section-label { padding: 0 var(--side-padding); color: var(--accent); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
+        
+        .work-grid { padding: 0 var(--side-padding) var(--space-xl); display: grid; grid-template-columns: 1fr; gap: var(--space-xl); }
+        .project-card { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
+        .img-wrap { width: 100%; height: 550px; overflow: hidden; border-radius: 4px; background: #111; border: 1px solid var(--border); }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
+        .info h3 { font-size: 2.5rem; margin-bottom: 20px; }
+        .info p { color: #888; max-width: 350px; font-size: 1rem; line-height: 1.6; }
+
+        /* 7. SERVICES & ABOUT (Combined) */
+        .about-grid { padding: var(--space-xl) var(--side-padding); background: var(--card-bg); border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+        .service-list h4 { color: var(--accent); margin-bottom: 20px; font-size: 1.2rem; }
+        .service-list p { margin-bottom: 40px; color: #888; }
+
+        /* 8. CONTACT FORM (Functional Ready) */
+        .contact-section { padding: var(--space-xl) var(--side-padding); text-align: center; }
+        .contact-section h2 { font-size: 4rem; margin-bottom: 40px; }
+        form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        
+        /* 9. REVEAL & BUTTONS */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .btn { padding: 20px 40px; background: var(--accent); color: #000; text-decoration: none; font-weight: 700; border: none; align-self: center; }
+        .theme-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; }
+
+        /* MOBILE FIXES */
+        @media (max-width: 1024px) {
+            .project-card, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero h1 { font-size: 4rem; }
+            header { padding: 20px 5%; }
+            .nav-links { display: none; } /* Simplified for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <header>
+        <div class="logo">DIGITAL<span>TRADE</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-btn" id="t-toggle">Theme</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1 class="reveal">Building Visual <br><span style="color:var(--accent)">Capital.</span></h1>
+            <p class="reveal">Strategic Branding and UI/UX for Athrex Energy, Virox, and the future of Digital Trade. Based in Dantewada, designed for the world.</p>
+        </section>
+
+        <div class="section-label" id="work">Selected Assets</div>
+        <section class="work-grid">
+            <div class="project-card reveal">
+                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Athrex"></div>
+                <div class="info"><h3>Athrex Energy</h3><p>Solar identity and service branding designed for trust and renewable energy leadership.</p></div>
+            </div>
+            <div class="project-card reveal">
+                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Virox"></div>
+                <div class="info"><h3>Virox Apparel</h3><p>Direct-to-consumer e-commerce UI/UX and lifestyle brand strategy.</p></div>
+            </div>
+        </section>
+
+        <section class="about-grid reveal" id="about">
+            <div class="bio">
+                <h4 style="color:var(--accent); margin-bottom:20px">About Me</h4>
+                <p style="font-size: 1.5rem; line-height: 1.4">I am a designer specializing in Digital Trade. I help businesses scale by creating high-performance visual systems and intuitive user experiences.</p>
+            </div>
+            <div class="service-list">
+                <h4>Capabilities</h4>
+                <p>Branding / UI UX / Packaging / SEO Strategy / Marketing Kits</p>
+                <h4>Location</h4>
+                <p>Dantewada, Chhattisgarh</p>
+                <h4>Contact</h4>
+                <p>+91 9399097196</p>
+            </div>
+        </section>
+
+        <section class="contact-section reveal" id="contact">
+            <h2>Let's Scale.</h2>
+            <form action="https://formspree.io/f/YOUR_ID" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Project details..."></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // 1. GPU CURSOR TRACKING
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            window.requestAnimationFrame(() => {
+                cursor.style.transform = `translate3d(${e.clientX - 7}px, ${e.clientY - 7}px, 0)`;
+            });
+        });
+
+        // 2. SCROLL REVEAL
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3. THEME TOGGLE
+        const btn = document.getElementById('t-toggle');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+
+        // 4. CURSOR HOVER EFFECTS
+        document.querySelectorAll('a, button, .img-wrap').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(4)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = cursor.style.transform.replace(' scale(4)', ''));
+        });
+    </script>
+</body>
+</html>
