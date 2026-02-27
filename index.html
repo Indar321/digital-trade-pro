@@ -3,76 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Trade | Master Portfolio</title>
+    <title>Digital Trade | Professional Design Agency</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        /* 1. POWERFUL THEME SYSTEM */
         :root {
-            --bg: #050505; --text: #ffffff; --accent: #00ffa3; --card: #0f0f0f; --border: #222;
-            --side: 8%; --gap: 140px;
-        }
-        .light-mode { --bg: #f5f5f5; --text: #121212; --accent: #00a86b; --card: #ffffff; --border: #ddd; }
-
-        /* --- THE ULTIMATE CURSOR FIX --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.4s; }
-
-        #cursor-ball {
-            width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
-            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999999;
-            mix-blend-mode: difference; transition: transform 0.1s ease-out;
+            --bg: #050505;
+            --text: #ffffff;
+            --accent: #00ffa3;
+            --card: #111111;
+            --border: #222222;
+            --header-bg: rgba(5, 5, 5, 0.9);
+            --side: 8%;
+            --section-gap: 120px;
         }
 
-        /* --- NAVIGATION --- */
-        header { position: fixed; top: 0; width: 100%; padding: 30px var(--side); display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(5,5,5,0.8); backdrop-filter: blur(10px); }
-        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; }
+        /* LIGHT THEME FIX */
+        .light-mode {
+            --bg: #ffffff;
+            --text: #121212;
+            --accent: #008f5d;
+            --card: #f8f8f8;
+            --border: #e0e0e0;
+            --header-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 2. CORE RESET - BACK TO NORMAL CURSOR */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: auto !important; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.3s ease; }
+
+        /* 3. HEADER FIX */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 25px var(--side); 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; background: var(--header-bg); border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-weight: 700; font-size: 1.5rem; color: var(--text); }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 25px; list-style: none; }
-        .nav-links a { text-decoration: none; color: inherit; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; }
 
-        /* --- HERO --- */
-        .hero { padding: 250px var(--side) 100px; min-height: 80vh; }
-        .hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 30px; }
-        .hero p { color: #888; max-width: 500px; font-size: 1.2rem; }
+        /* 4. HERO SECTION */
+        .hero { padding: 220px var(--side) 80px; min-height: 70vh; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; margin-bottom: 30px; }
+        .accent-text { color: var(--accent); }
 
-        /* --- WORK GALLERY (CAROUSEL EFFECT) --- */
-        .work-gallery { padding: var(--gap) var(--side); }
-        .carousel-container { display: flex; overflow-x: scroll; gap: 30px; padding-bottom: 30px; scroll-snap-type: x mandatory; }
-        .carousel-container::-webkit-scrollbar { display: none; }
-        .work-item { min-width: 600px; height: 400px; background: #111; border: 1px solid var(--border); scroll-snap-align: start; position: relative; overflow: hidden; }
-        .work-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
-        .work-item:hover img { opacity: 1; transform: scale(1.05); }
-        .work-label { position: absolute; bottom: 30px; left: 30px; }
+        /* 5. SMOOTH CAROUSEL GALLERY */
+        .gallery-section { padding: var(--section-gap) var(--side); }
+        .carousel { 
+            display: flex; gap: 30px; overflow-x: auto; padding-bottom: 40px;
+            scroll-snap-type: x mandatory; scrollbar-width: none; 
+        }
+        .carousel::-webkit-scrollbar { display: none; }
+        .carousel-item { 
+            min-width: 350px; height: 500px; background: var(--card); 
+            border: 1px solid var(--border); scroll-snap-align: center;
+            position: relative; overflow: hidden; border-radius: 8px;
+        }
+        .carousel-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; }
+        .carousel-item:hover img { opacity: 1; transform: scale(1.05); }
 
-        /* --- PRICING SECTION --- */
-        .pricing { padding: var(--gap) var(--side); background: var(--card); }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-        .price-card { border: 1px solid var(--border); padding: 40px; transition: 0.3s; }
+        /* 6. DETAILED PRICING MATRIX */
+        .pricing { padding: var(--section-gap) var(--side); background: var(--card); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        .price-card { border: 1px solid var(--border); padding: 40px; background: var(--bg); transition: 0.3s; }
         .price-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        .price-card h3 { color: var(--accent); margin-bottom: 10px; }
-        .price-card .cost { font-size: 2rem; font-weight: 700; margin-bottom: 20px; }
-        .price-card ul { list-style: none; color: #888; font-size: 0.9rem; line-height: 2; }
+        .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .price-card .cost { font-size: 2.5rem; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
+        .price-card ul { list-style: none; color: #888; font-size: 0.9rem; line-height: 2.5; }
 
-        /* --- ABOUT & CONTACT --- */
-        .about-contact { padding: var(--gap) var(--side); display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
-        form { display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
+        /* 7. CONTACT SECTION */
+        .contact { padding: var(--section-gap) var(--side); text-align: center; }
+        .contact-form { max-width: 600px; margin: 50px auto; display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { padding: 18px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 4px; }
 
-        /* --- ENHANCED FOOTER --- */
-        footer { padding: 100px var(--side); background: #000; border-top: 1px solid var(--border); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
-        .footer-col h4 { color: var(--accent); margin-bottom: 20px; font-size: 0.8rem; text-transform: uppercase; }
-        .footer-col p, .footer-col a { color: #666; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 10px; }
-        .footer-bottom { margin-top: 80px; padding-top: 30px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; display: flex; justify-content: space-between; }
+        /* 8. FOOTER UPGRADE */
+        footer { padding: 80px var(--side); border-top: 1px solid var(--border); background: var(--card); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .footer-col h4 { color: var(--accent); margin-bottom: 20px; font-size: 0.9rem; text-transform: uppercase; }
+        .footer-col p { font-size: 0.9rem; color: #777; line-height: 1.8; }
+        .socials { display: flex; gap: 15px; margin-top: 15px; }
+        .socials a { color: var(--text); text-decoration: none; font-size: 1.2rem; }
 
-        /* UTILS */
-        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s ease-out; }
+        /* UI ELEMENTS */
+        .btn { padding: 18px 40px; background: var(--accent); color: #000; border: none; font-weight: 700; cursor: pointer !important; text-transform: uppercase; }
+        .theme-btn { padding: 8px 18px; border-radius: 50px; background: var(--accent); border: none; font-weight: 700; cursor: pointer !important; font-size: 0.7rem; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .theme-btn { background: var(--accent); color: #000; border: none; padding: 5px 15px; border-radius: 20px; font-weight: 700; }
     </style>
 </head>
 <body>
-
-    <div id="cursor-ball"></div>
 
     <header>
         <div class="logo">DIGITAL<span>TRADE</span></div>
@@ -80,71 +101,73 @@
             <ul class="nav-links">
                 <li><a href="#work">Work</a></li>
                 <li><a href="#prices">Pricing</a></li>
-                <li><a href="#about">About</a></li>
-                <li><button class="theme-btn" onclick="document.body.classList.toggle('light-mode')">Theme</button></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-btn" id="t-toggle">Mode</button></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero reveal">
-            <h1>Design for <br><span style="color:var(--accent)">Scale.</span></h1>
-            <p>From Athrex Energy to Virox Apparel—we build the visual capital required to win in modern trade.</p>
+            <h1>Expert <span class="accent-text">Identity</span> <br>Design & Trade.</h1>
+            <p style="color: #777; max-width: 550px; margin-top: 20px;">Strategic branding for Athrex Energy, Virox Apparel, and digital leaders. We don't just design; we build business assets.</p>
         </section>
 
-        <section id="work" class="work-gallery reveal">
-            <h2 style="margin-bottom: 40px;">Selected Gallery (Scroll →)</h2>
-            <div class="carousel-container">
-                <div class="work-item">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200">
-                    <div class="work-label"><h3>Athrex Identity</h3><p>Solar & Energy</p></div>
-                </div>
-                <div class="work-item">
-                    <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200">
-                    <div class="work-label"><h3>Virox Store</h3><p>UI/UX Design</p></div>
-                </div>
-                <div class="work-item">
-                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200">
-                    <div class="work-label"><h3>Trade Packaging</h3><p>Product Design</p></div>
-                </div>
+        <section id="work" class="gallery-section reveal">
+            <h2 style="margin-bottom: 40px;">Portfolio Gallery (Swipe)</h2>
+            <div class="carousel">
+                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800"></div>
+                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=800"></div>
+                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800"></div>
+                <div class="carousel-item"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800"></div>
             </div>
         </section>
 
         <section id="prices" class="pricing reveal">
-            <h2>Service Packages</h2>
+            <h2>Digital Trade Packages</h2>
             <div class="pricing-grid">
                 <div class="price-card">
-                    <h3>Essentials</h3>
-                    <div class="cost">₹9,999</div>
-                    <ul><li>Logo Design</li><li>Business Cards</li><li>Brand Colors</li></ul>
+                    <h3>Startup Identity</h3>
+                    <div class="cost">₹12,000</div>
+                    <ul>
+                        <li>✔ Premium Logo Design</li>
+                        <li>✔ Business Stationery</li>
+                        <li>✔ Brand Style Guide</li>
+                        <li>✔ Social Media Kit</li>
+                    </ul>
                 </div>
                 <div class="price-card" style="border-color: var(--accent);">
-                    <h3>Growth</h3>
-                    <div class="cost">₹24,999</div>
-                    <ul><li>Full Branding</li><li>UI/UX Landing Page</li><li>Social Media Kit</li></ul>
+                    <h3>Digital Growth</h3>
+                    <div class="cost">₹35,000</div>
+                    <ul>
+                        <li>✔ Everything in Startup</li>
+                        <li>✔ UI/UX Landing Page</li>
+                        <li>✔ Marketing Strategy</li>
+                        <li>✔ Professional Packaging</li>
+                    </ul>
                 </div>
                 <div class="price-card">
-                    <h3>Enterprise</h3>
+                    <h3>Enterprise Pack</h3>
                     <div class="cost">Custom</div>
-                    <ul><li>Full Strategy</li><li>App Design</li><li>Packaging & SEO</li></ul>
+                    <ul>
+                        <li>✔ Full Corporate Identity</li>
+                        <li>✔ E-commerce Ecosystem</li>
+                        <li>✔ 3D Mockups & Motion</li>
+                        <li>✔ Long-term Maintenance</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="about" class="about-contact reveal">
-            <div>
-                <h2 style="margin-bottom: 20px;">About Me</h2>
-                <p style="color:#888; font-size: 1.1rem; line-height: 1.8;">I am a specialist in Digital Trade assets. My design philosophy is rooted in performance. Based in Dantewada, I help brands like Virox and Athrex transform their vision into high-performance visual systems.</p>
-            </div>
-            <div>
-                <h2 style="margin-bottom: 20px;">Contact</h2>
-                <form action="https://formspree.io/f/YOUR_ID" method="POST">
-                    <input type="text" placeholder="Full Name" required>
-                    <input type="email" placeholder="Email Address" required>
-                    <textarea rows="4" placeholder="Your Project Requirements"></textarea>
-                    <button type="submit" style="padding: 20px; background: var(--accent); border: none; font-weight: 700;">Send Inquiry</button>
-                </form>
-            </div>
+        <section id="contact" class="contact reveal">
+            <h2>Start a Project</h2>
+            <p>Direct Line: +91 9399097196 | Dantewada, CG</p>
+            <form class="contact-form" action="https://formspree.io/f/YOUR_ID" method="POST">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <textarea rows="4" placeholder="Tell us about Athrex or Virox projects..."></textarea>
+                <button type="submit" class="btn">Send Inquiry</button>
+            </form>
         </section>
     </main>
 
@@ -152,47 +175,37 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div class="logo">DIGITAL<span>TRADE</span></div>
-                <p style="margin-top: 20px;">Engineering visual equity for high-growth ventures since 2024.</p>
+                <p>Strategic Design. Commercial Results.</p>
             </div>
             <div class="footer-col">
-                <h4>Sitemap</h4>
-                <a href="#work">Portfolio</a>
-                <a href="#prices">Pricing</a>
-                <a href="#about">About</a>
+                <h4>Capabilities</h4>
+                <p>Branding & Logo Design</p>
+                <p>UI/UX & Web Systems</p>
+                <p>Product Packaging</p>
             </div>
             <div class="footer-col">
                 <h4>Contact</h4>
-                <p>+91 9399097196</p>
-                <p>Dantewada, Chhattisgarh</p>
-                <p>trade@digital.com</p>
+                <p>Email: contact@digitaltrade.com</p>
+                <p>Phone: +91 9399097196</p>
+                <p>Loc: Dantewada, Chhattisgarh</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 DIGITAL TRADE PORTFOLIO. ALL RIGHTS RESERVED.</p>
-            <p>DESIGNED BY YOU.</p>
         </div>
     </footer>
 
     <script>
-        const cursor = document.getElementById('cursor-ball');
-        
-        // GPU TRACKING
-        window.addEventListener('mousemove', (e) => {
-            window.requestAnimationFrame(() => {
-                cursor.style.transform = `translate3d(${e.clientX - 7}px, ${e.clientY - 7}px, 0)`;
-            });
+        // 1. THEME TOGGLE FIX
+        const tBtn = document.getElementById('t-toggle');
+        tBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
         });
 
-        // HOVER EFFECTS
-        document.querySelectorAll('a, button, input, textarea, .work-item').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(5)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = cursor.style.transform.replace(' scale(5)', ''));
-        });
-
-        // REVEAL
+        // 2. SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
         }, { threshold: 0.1 });
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
