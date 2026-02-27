@@ -3,213 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Trade | Graphic Design & Branding</title>
+    <title>Digital Trade | Master Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* 1. THEME & SPACING */
         :root {
-            --bg: #050505;
-            --text: #ffffff;
-            --accent: #00ffa3;
-            --card-bg: #0f0f0f;
-            --border: #222;
-            --side-padding: 8%;
-            --section-gap: 160px;
+            --bg: #050505; --text: #ffffff; --accent: #00ffa3; --card: #0f0f0f; --border: #222;
+            --side: 8%; --gap: 150px;
+        }
+        .light-mode { --bg: #f5f5f5; --text: #121212; --accent: #00a86b; --card: #ffffff; --border: #ddd; }
+
+        /* --- THE CURSOR FIX: SYSTEM WIDE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; cursor: none !important; }
+        
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.4s; }
+
+        #cursor-fix {
+            width: 15px; height: 15px; background: var(--accent); border-radius: 50%;
+            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999999;
+            mix-blend-mode: difference; will-change: transform; transform: translate(-50%, -50%);
         }
 
-        .light-mode {
-            --bg: #f8f8f8;
-            --text: #121212;
-            --accent: #008f5d;
-            --card-bg: #ffffff;
-            --border: #e0e0e0;
-        }
-
-        /* 2. CORE RESET - Hiding Default Cursor */
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        html, body, a, button, input, textarea { cursor: none !important; }
-
-        body { 
-            font-family: 'Space Grotesk', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            overflow-x: hidden; 
-            transition: background 0.5s ease; 
-        }
-
-        /* 3. THE FIXED CURSOR (Z-INDEX 999999) */
-        #cursor-ball {
-            width: 12px; height: 12px; 
-            background: var(--accent); 
-            border-radius: 50%;
-            position: fixed; 
-            top: 0; left: 0; 
-            pointer-events: none; 
-            z-index: 999999;
-            mix-blend-mode: difference; 
-            transition: transform 0.1s ease-out;
-            will-change: transform;
-        }
-
-        /* 4. NAVIGATION */
-        header { 
-            position: fixed; top: 0; width: 100%; padding: 40px var(--side-padding); 
-            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
-        }
-        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; }
+        /* --- LAYOUT & SPACING --- */
+        header { position: fixed; top: 0; width: 100%; padding: 40px var(--side); display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .logo { font-weight: 700; font-size: 1.5rem; }
         .logo span { color: var(--accent); }
-        .nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .hero { padding: 250px var(--side) 100px; min-height: 90vh; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 30px; }
 
-        /* 5. HERO SECTION */
-        .hero { 
-            padding: 250px var(--side-padding) 100px; 
-            min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
-        }
-        .hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.85; margin-bottom: 40px; }
-
-        /* 6. WORK SECTION (Spaced Blocks) */
-        .work-section { padding-bottom: var(--section-gap); }
-        .project-card { 
-            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; 
-            align-items: center; padding: 0 var(--side-padding) var(--section-gap); 
-        }
-        .img-wrap { width: 100%; height: 500px; overflow: hidden; border-radius: 4px; background: #111; border: 1px solid var(--border); }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; padding: 0 var(--side) var(--gap); align-items: center; }
+        .img-wrap { height: 500px; overflow: hidden; border: 1px solid var(--border); background: #111; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 1s; }
         .project-card:hover img { filter: grayscale(0%); transform: scale(1.05); }
-        .info h3 { font-size: 2.5rem; margin-bottom: 20px; }
-        .info p { color: #888; font-size: 1.1rem; line-height: 1.6; max-width: 400px; }
 
-        /* 7. CONTACT FORM */
-        .contact-area { padding: var(--section-gap) var(--side-padding); border-top: 1px solid var(--border); }
-        .contact-area h2 { font-size: 3rem; margin-bottom: 50px; text-align: center; }
+        /* --- NEW: TESTIMONIALS --- */
+        .testimonials { padding: var(--gap) var(--side); background: var(--card); border-top: 1px solid var(--border); }
+        .t-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .t-card { border-left: 2px solid var(--accent); padding-left: 20px; }
+        .t-card p { font-style: italic; color: #888; margin-bottom: 15px; }
+
+        /* --- CONTACT & FOOTER --- */
+        .contact { padding: var(--gap) var(--side); text-align: center; }
         form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
-        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        input, textarea { padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
+        
+        footer { padding: 60px var(--side); border-top: 1px solid var(--border); display: flex; justify-content: space-between; color: #555; font-size: 0.8rem; }
 
-        /* 8. FOOTER */
-        footer { 
-            padding: 80px var(--side-padding); 
-            background: #000; color: #555; 
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--border);
-        }
-        .footer-left p { margin-bottom: 10px; font-size: 0.9rem; }
-        .footer-right { display: flex; gap: 30px; }
-        .footer-right a { color: #888; text-decoration: none; font-size: 0.8rem; }
-
-        /* REVEAL & UI */
-        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .btn { padding: 20px 40px; background: var(--accent); color: #000; font-weight: 700; border: none; align-self: center; }
-        .theme-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 18px; border-radius: 50px; font-size: 0.7rem; }
-
-        @media (max-width: 1024px) {
-            .project-card { grid-template-columns: 1fr; gap: 40px; }
-            .hero { padding-top: 180px; }
-            .nav-links { display: none; }
-        }
+        .theme-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; }
     </style>
 </head>
 <body>
 
-    <div id="cursor-ball"></div>
+    <div id="cursor-fix"></div>
 
     <header>
         <div class="logo">DIGITAL<span>TRADE</span></div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#work">Work</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><button class="theme-btn" id="theme-btn">Theme</button></li>
-            </ul>
+        <nav style="display: flex; gap: 30px; align-items: center;">
+            <a href="#work" style="text-decoration: none; color: inherit; font-size: 0.7rem; text-transform: uppercase;">Work</a>
+            <button class="theme-btn" onclick="document.body.classList.toggle('light-mode')">Theme</button>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <h1 class="reveal">Engineering <br><span style="color:var(--accent)">Brand Equity.</span></h1>
-            <p class="reveal" style="max-width:600px; color:#888; font-size: 1.2rem;">Graphic Design & Digital Strategy for Athrex Energy, Virox, and high-performance ventures.</p>
+        <section class="hero reveal">
+            <h1>Branding <br><span style="color:var(--accent)">Engineered.</span></h1>
+            <p style="color:#888; max-width: 500px;">Strategic visual assets for Athrex Energy, Virox Apparel, and Digital Trade clients.</p>
         </section>
 
-        <section id="work" class="work-section">
+        <section id="work">
             <div class="project-card reveal">
-                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200" alt="Athrex"></div>
-                <div class="info"><h3>Athrex Energy</h3><p>Solar branding and industrial identity designed for the clean energy transition.</p></div>
+                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200"></div>
+                <div class="info"><h3>Athrex Energy</h3><p>Solar identity system designed for renewable growth.</p></div>
             </div>
-            <div class="project-card reveal">
-                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200" alt="Virox"></div>
-                <div class="info"><h3>Virox Apparel</h3><p>Direct-to-consumer UI/UX and digital marketing strategy for a modern lifestyle brand.</p></div>
+            <div class="project-card reveal" style="grid-template-columns: 0.8fr 1.2fr;">
+                <div class="info"><h3>Virox Apparel</h3><p>Lifestyle branding and mobile-first UI/UX strategy.</p></div>
+                <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200"></div>
             </div>
         </section>
 
-        <section id="contact" class="contact-area reveal">
-            <h2>Let's Talk.</h2>
+        <section class="testimonials reveal">
+            <h4 style="margin-bottom: 40px; color:var(--accent)">Client Feedback</h4>
+            <div class="t-grid">
+                <div class="t-card"><p>"The branding for Athrex completely changed how our clients perceive us. Professional and clean."</p><strong>— Athrex Energy Team</strong></div>
+                <div class="t-card"><p>"Virox now has a digital storefront that actually converts. The UI/UX is flawless."</p><strong>— Virox Apparel</strong></div>
+            </div>
+        </section>
+
+        <section class="contact reveal" id="contact">
+            <h2>Start a Project</h2>
             <form action="https://formspree.io/f/YOUR_ID" method="POST">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="message" rows="5" placeholder="Your Project..."></textarea>
-                <button type="submit" class="btn">Send Message</button>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea rows="5" placeholder="Details..."></textarea>
+                <button type="submit" class="btn">Send Request</button>
             </form>
         </section>
     </main>
 
     <footer>
-        <div class="footer-left">
-            <p>Digital Trade Portfolio — 2026</p>
-            <p>Location: Dantewada, CG</p>
-            <p>Phone: +91 9399097196</p>
-        </div>
-        <div class="footer-right">
-            <a href="#">Instagram</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">Behance</a>
-        </div>
+        <p>© 2026 DIGITAL TRADE | DANTEWADA, CG</p>
+        <p>+91 9399097196</p>
     </footer>
 
     <script>
-        // 1. IMPROVED CURSOR TRACKING
-        const cursorBall = document.getElementById('cursor-ball');
+        const cursor = document.getElementById('cursor-fix');
         
-        // Track mouse position globally
-        document.addEventListener('mousemove', (e) => {
+        // GLOBAL MOUSE TRACKER
+        window.addEventListener('mousemove', (e) => {
             const x = e.clientX;
             const y = e.clientY;
-            
-            // Using requestAnimationFrame for high-performance 60fps movement
-            window.requestAnimationFrame(() => {
-                cursorBall.style.transform = `translate3d(${x - 6}px, ${y - 6}px, 0)`;
-            });
+            // Immediate GPU-accelerated movement
+            cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         });
 
-        // 2. CURSOR INTERACTIONS
-        const activeItems = document.querySelectorAll('a, button, .img-wrap, input, textarea');
-        activeItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                cursorBall.style.transform += ' scale(5)';
-                cursorBall.style.opacity = '0.5';
-            });
-            item.addEventListener('mouseleave', () => {
-                cursorBall.style.transform = cursorBall.style.transform.replace(' scale(5)', '');
-                cursorBall.style.opacity = '1';
-            });
+        // HOVER SCALING
+        document.querySelectorAll('a, button, input, textarea, .img-wrap').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.width = '60px');
+            el.addEventListener('mouseenter', () => cursor.style.height = '60px');
+            el.addEventListener('mouseleave', () => cursor.style.width = '15px');
+            el.addEventListener('mouseleave', () => cursor.style.height = '15px');
         });
 
-        // 3. SCROLL REVEAL
+        // REVEAL LOGIC
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // 4. THEME TOGGLE
-        const themeBtn = document.getElementById('theme-btn');
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-        });
     </script>
 </body>
 </html>
